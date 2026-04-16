@@ -90,6 +90,7 @@ All endpoints are prefixed under `http://localhost:3000`.
 | `DELETE` | `/tasks/:id` | Remove a task object permanently. |
 | `PATCH` | `/tasks/:id/complete`| Quickly toggle a specific task to a `done` state. |
 | `PATCH` | `/tasks/:id/assign` | Reassign a specific task to a new user payload. |
+| `GET` | `/health` | Server readiness check. Returns `{ "status": "OK" }`. |
 
 ## API Usage
 
