@@ -146,6 +146,12 @@ curl -X PATCH http://localhost:3000/tasks/1634567891012/assign \
 }
 ```
 
+## Error Handling
+
+The API employs consistent, predictable JSON responses for all error states:
+- `400 Bad Request`: Returned when input validation fails (e.g. missing fields, invalid payload data).
+- `404 Not Found`: Returned when attempting to query, update, or assign a task ID that does not exist.
+
 ## Testing
 
 This project employs a robust automated testing CI/CD workflow utilizing Jest to maintain system integrity.
