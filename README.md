@@ -9,7 +9,7 @@ git clone https://github.com/adithyancp123/task-api-takehome.git
 cd task-api
 npm install
 npm test
-node src/app.js
+npm start
 ```
 
 ## Features
