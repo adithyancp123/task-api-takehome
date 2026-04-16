@@ -64,7 +64,12 @@ npm start
    npm install
    ```
 
-3. **Start the local server**:
+3. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Start the local server**:
    ```bash
    npm start
    ```
