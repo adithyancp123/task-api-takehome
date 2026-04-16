@@ -27,6 +27,13 @@ npm start
 - **Jest**: Zero-configuration testing platform.
 - **Supertest**: High-level abstraction for testing Express HTTP routes cleanly.
 
+## Project Structure
+
+- `src/routes/`: Express route handlers mapping HTTP verbs to endpoints.
+- `src/services/`: Core business logic, data operations, and task array manipulation.
+- `src/utils/`: Reusable payload constraints, validators, and error helpers.
+- `tests/`: Automated integration tests enforcing application correctness via Jest.
+
 ## Setup Instructions
 
 **Prerequisites:** You must have [Node.js](https://nodejs.org/en/) installed on your local machine.
