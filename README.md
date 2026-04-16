@@ -2,6 +2,16 @@
 
 A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
 
+## Quick Start
+
+```bash
+git clone https://github.com/adithyancp123/task-api-takehome.git
+cd task-api
+npm install
+npm test
+node src/app.js
+```
+
 ## Features
 - **Complete Task Lifecycle**: Create, read, update, and delete tasks dynamically.
 - **Advanced Querying**: Filter results seamlessly by status and paginate large responses for optimized client handling.
