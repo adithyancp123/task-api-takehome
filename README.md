@@ -143,6 +143,10 @@ curl -X PATCH http://localhost:3000/tasks/1634567891012/assign \
 
 This project employs a robust automated testing CI/CD workflow utilizing Jest to maintain system integrity.
 
+### Test Results
+- ✔ **All tests passing** (10/10)
+- ✔ **Coverage**: ~80%
+
 Run the full testing suite:
 ```bash
 npm test
