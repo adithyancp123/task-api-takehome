@@ -1,5 +1,7 @@
 # Task API
 
+🚀 Built as a take-home assignment demonstrating debugging, testing, and API design skills.
+
 A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
 
 ## Quick Start
