@@ -4,6 +4,14 @@
 
 A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
 
+## Purpose of this Assignment
+
+This repository serves to demonstrate several core backend engineering capabilities:
+- **Debugging unfamiliar code**: Analyzing and repairing broken configurations and routing abstractions.
+- **Writing tests for reliability**: Authoring a robust test suite utilizing Jest and Supertest for TDD compliance.
+- **Fixing real bugs**: Identifying and mathematically resolving faulty filtering logic and missing offset paginations.
+- **Implementing new features**: Designing and fully testing the net-new `PATCH /tasks/:id/assign` endpoint from scratch.
+
 ## Quick Start
 
 ```bash
