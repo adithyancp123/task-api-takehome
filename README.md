@@ -8,7 +8,7 @@ A robust, fully-tested REST API built with Node.js and Express.js for managing t
 
 ```bash
 git clone https://github.com/adithyancp123/task-api-takehome.git
-cd task-api
+cd task-api-takehome
 npm install
 npm test
 npm start
@@ -47,8 +47,8 @@ npm start
 
 1. **Clone the repository**:
    ```bash
-   git clone <your-repo-url>
-   cd task-api
+   git clone https://github.com/adithyancp123/task-api-takehome.git
+   cd task-api-takehome
    ```
 
 2. **Install project dependencies**:
