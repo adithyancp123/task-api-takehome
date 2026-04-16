@@ -4,15 +4,15 @@
 
 🚀 Built as a take-home assignment demonstrating debugging, testing, and API design skills.
 
-A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
+A simple, RESTful API built with Node.js and Express.js. It features full CRUD operations, filtering, and pagination.
 
 ## Purpose of this Assignment
 
-This repository serves to demonstrate several core backend engineering capabilities:
-- **Debugging unfamiliar code**: Analyzing and repairing broken configurations and routing abstractions.
-- **Writing tests for reliability**: Authoring a robust test suite utilizing Jest and Supertest for TDD compliance.
-- **Fixing real bugs**: Identifying and mathematically resolving faulty filtering logic and missing offset paginations.
-- **Implementing new features**: Designing and fully testing the net-new `PATCH /tasks/:id/assign` endpoint from scratch.
+This repository demonstrates practical backend engineering skills:
+- **Debugging unfamiliar code**: Analyzing and fixing broken routing setup and application logic.
+- **Writing tests for reliability**: Creating a solid test suite with Jest and Supertest.
+- **Fixing real bugs**: Repairing incorrect filtering logic and pagination bugs.
+- **Implementing new features**: Designing and testing a new `PATCH /tasks/:id/assign` endpoint.
 
 ## Quick Start
 
@@ -25,31 +25,31 @@ npm start
 ```
 
 ## Features
-- **Complete Task Lifecycle**: Create, read, update, and delete tasks dynamically.
-- **Advanced Querying**: Filter results seamlessly by status and paginate large responses for optimized client handling.
-- **Workflow Management**: Mark tasks automatically as complete, assign ownership (`PATCH /tasks/:id/assign`), and fetch real-time task completion statistics.
-- **Fault-Tolerant Validations**: Comprehensive input validation mechanisms to prevent corrupted system state.
-- **Production-Ready Testing**: Built utilizing test-driven patterns, boasting an extensive Jest test-suite with over 80% coverage on core service layers and routing execution.
+- **Task Management**: Create, read, update, and delete tasks.
+- **Filtering & Pagination**: Easily filter tasks by status and paginate results.
+- **Task Actions**: Mark tasks as complete or flexibly assign them to a user.
+- **Input Validation**: Safely rejects invalid requests so the server doesn't crash.
+- **Testing**: Highly tested code using Jest to keep everything reliable.
 
 ## Tech Stack
-- **Node.js**: Asynchronous event-driven JavaScript runtime.
-- **Express.js**: Lightweight HTTP routing protocol and server.
-- **Jest**: Zero-configuration testing platform.
-- **Supertest**: High-level abstraction for testing Express HTTP routes cleanly.
+- **Node.js**: JavaScript runtime environment.
+- **Express.js**: Web server framework.
+- **Jest**: Testing framework.
+- **Supertest**: HTTP testing library.
 
 ## Project Structure
 
-- `src/routes/`: Express route handlers mapping HTTP verbs to endpoints.
-- `src/services/`: Core business logic, data operations, and task array manipulation.
-- `src/utils/`: Reusable payload constraints, validators, and error helpers.
-- `tests/`: Automated integration tests enforcing application correctness via Jest.
+- `src/routes/`: Route handlers mapping HTTP methods to application actions.
+- `src/services/`: Core logic and data manipulation.
+- `src/utils/`: Reusable validation functions.
+- `tests/`: Automated test files.
 
 ## Design Decisions
 
-- **RESTful Architecture**: Adheres strictly to core REST principles, utilizing appropriate HTTP conventions and predictable namespace routing.
-- **Separation of Concerns**: Maintains a clean boundary isolation—acting HTTP controllers (`routes/`) are strictly decoupled from memory orchestration and business models (`services/`).
-- **Validation Layering**: Defends application states proactively via strict reusable validators (`utils/validators.js`) mapped to immediate 400 rejection chains.
-- **Test-First Methodology**: Extensively hardened operations under Jest/Supertest CI standards, ensuring bug resistance and 80%+ structural coverage margins.
+- **RESTful**: Uses standard HTTP methods and clean, predictable URLs.
+- **Separation of Concerns**: Routes just handle HTTP requests, while services handle logic and data storage independently.
+- **Validation Layers**: Uses reusable functions (`utils/validators.js`) to reject bad input before it hits business logic.
+- **Test-First**: Built with testing in mind to prevent bugs and ensure code quality over time.
 
 ## Setup Instructions
 
@@ -79,17 +79,17 @@ npm start
 
 ## API Endpoints
 
-All endpoints are prefixed under `http://localhost:3000`.
+All endpoints are located at `http://localhost:3000`.
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| `GET` | `/tasks` | Retrieve all active tasks. Accepts `?status`, `?page`, and `?limit`. |
-| `GET` | `/tasks/stats` | Retrieve aggregated global data on task completions and overdue rates. |
-| `POST` | `/tasks` | Provision a new task object in the system. |
-| `PUT` | `/tasks/:id` | Perform a replacement update on a given task's parameters. |
-| `DELETE` | `/tasks/:id` | Remove a task object permanently. |
-| `PATCH` | `/tasks/:id/complete`| Quickly toggle a specific task to a `done` state. |
-| `PATCH` | `/tasks/:id/assign` | Reassign a specific task to a new user payload. |
+| `GET` | `/tasks` | Get all tasks. Accepts `?status`, `?page`, and `?limit`. |
+| `GET` | `/tasks/stats` | Get basic statistics about task completions and overdue items. |
+| `POST` | `/tasks` | Create a new task. |
+| `PUT` | `/tasks/:id` | Update a task. |
+| `DELETE` | `/tasks/:id` | Delete a task. |
+| `PATCH` | `/tasks/:id/complete`| Mark a task as done. |
+| `PATCH` | `/tasks/:id/assign` | Assign a task to a user. |
 | `GET` | `/health` | Server readiness check. Returns `{ "status": "OK" }`. |
 
 ## API Usage
@@ -119,7 +119,7 @@ curl -X GET "http://localhost:3000/tasks?status=todo&limit=5"
 ```
 
 ### 2. Create a Task (`POST /tasks`)
-Provision a new task in the system.
+Create a new task in the system.
 
 **Request:**
 ```bash
@@ -145,7 +145,7 @@ curl -X POST http://localhost:3000/tasks \
 ```
 
 ### 3. Assign a Task (`PATCH /tasks/:id/assign`)
-Reassign a specific task to a designated team member or user.
+Assign a specific task to a team member or user.
 
 **Request:**
 ```bash
@@ -187,13 +187,13 @@ npm start
 
 ## Error Handling
 
-The API employs consistent, predictable JSON responses for all error states:
-- `400 Bad Request`: Returned when input validation fails (e.g. missing fields, invalid payload data).
-- `404 Not Found`: Returned when attempting to query, update, or assign a task ID that does not exist.
+The API returns consistent, predictable JSON responses for any errors:
+- `400 Bad Request`: Returned when input validation fails (e.g. missing fields or bad payload types).
+- `404 Not Found`: Returned when attempting to view or change a task that doesn't exist.
 
 ## Testing
 
-This project employs a robust automated testing CI/CD workflow utilizing Jest to maintain system integrity.
+This project uses Jest for automated testing to catch regressions.
 
 ### Test Results
 - ✔ **All tests passing** (10/10)
@@ -204,7 +204,7 @@ Run the full testing suite:
 npm test
 ```
 
-Generate a deep coverage report on system files:
+Generate a deep coverage report:
 ```bash
 npm run coverage
 ```
@@ -213,19 +213,19 @@ npm run coverage
 
 *This project focused on identifying hidden bugs through testing and fixing them with minimal code changes.*
 
-The system has been refactored over time to stabilize critical edge cases spanning routing logic and operational data handling:
-- **Pagination Miscalculation**: Remediated a high-priority 0-indexed integer issue in the service offset logic, preventing the API from accidentally discarding primary/first-page data.
-- **Routing Modules**: Rectified dependency shadowing and syntax conflicts within Express router bindings, guaranteeing healthy server startup processes.
-- **Validation Strictness**: Adjusted filtering routines to avoid soft-inclusive regressions (enforcing type and strict-equality). 
+This project resolved several critical bugs that were impacting functionality:
+- **Pagination Bug**: Fixed a math issue where the first page of results was being entirely skipped due to an incorrect offset calculation.
+- **Routing Import Error**: Fixed broken exports and imports between `app.js` and `routes.js` that caused server startup crashing.
+- **Validation Match Bug**: Updated the status filtering checks to use strict equality (`===`) instead of loose string matching (`.includes()`), preventing incorrect matches.
 
 ## Assumptions and Trade-offs
-- **In-Memory Storage**: The system relies on a transient in-memory array rather than a persistent database. This allows for immediate local execution but results in data loss upon server restart.
-- **Simplicity Over Scalability**: The architecture prioritizes a straightforward, minimal Express setup rather than a heavily abstracted, horizontally scalable microservice framework.
-- **No Authentication**: Endpoints remain public without authorization guards in order to reduce friction during testing and sandbox evaluations.
-- **Focus on Correctness**: Primary development cycles were allocated to achieving high testability, fixing calculation logic, and building strong validators rather than producing feature bulk.
+- **In-Memory Storage**: Uses a simple JavaScript array instead of a database for quick testing (note: data will reset on server restart).
+- **Simple Architecture**: Kept the Express server files lightweight instead of over-engineering the application.
+- **No Authentication**: The endpoints do not require login headers, keeping it fast and easy to test securely without overhead.
+- **Focus on Correctness**: Focused development time purely on fixing logic bugs and securing test coverage rather than adding unnecessary features.
 
 ## Future Improvements
-- **Add database (MongoDB/PostgreSQL)**: Migrate away from volatile in-memory arrays to a reliable, persistent database scheme.
-- **Add authentication (JWT)**: Secure API routes by implementing robust JSON Web Token authorization layers.
-- **Add validation library (Joi/Zod)**: Further enforce datatype strictness and schema assurance upon incoming payloads.
-- **Add Docker support**: Containerize the execution environment for immediate, infrastructure-agnostic deployment.
+- **Add database (MongoDB/PostgreSQL)**: Migrate away from volatile arrays to a reliable database.
+- **Add authentication (JWT)**: Secure routes so only authenticated users can access the application.
+- **Add validation library (Joi/Zod)**: Use a strict library to validate incoming API requests.
+- **Add Docker support**: Containerize the app to make deployment easier.
