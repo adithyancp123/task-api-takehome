@@ -1,76 +1,160 @@
-# 📋 Node.js Express Task API
+# Task API
 
-A robust, fully-tested REST API built with **Node.js** and **Express.js** for managing tasks. This project features complete CRUD capabilities, advanced filtering, pagination, and built-in task statistics.
+A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
 
-## ✨ Features
-- **Full CRUD Operations**: Create, Read, Update, and Delete tasks efficiently.
-- **Advanced Filtering & Pagination**: Filter tasks by status and seamlessly paginate results.
-- **Task Assignment**: Reassign tasks dynamically (`PATCH /tasks/:id/assign`).
-- **Real-time Statistics**: Fetch insights on to-do, in-progress, completed, and overdue tasks.
-- **Comprehensive Testing**: Validated with **Jest** and **Supertest** achieving 80%+ test coverage.
+## Features
+- **Complete Task Lifecycle**: Create, read, update, and delete tasks dynamically.
+- **Advanced Querying**: Filter results seamlessly by status and paginate large responses for optimized client handling.
+- **Workflow Management**: Mark tasks automatically as complete, assign ownership (`PATCH /tasks/:id/assign`), and fetch real-time task completion statistics.
+- **Fault-Tolerant Validations**: Comprehensive input validation mechanisms to prevent corrupted system state.
+- **Production-Ready Testing**: Built utilizing test-driven patterns, boasting an extensive Jest test-suite with over 80% coverage on core service layers and routing execution.
 
-## 🛠️ Tech Stack
-- **JavaScript (Node.js)**
-- **Express.js** (Routing & Middleware)
-- **Jest** (Testing Framework)
-- **Supertest** (HTTP Assertion for API testing)
+## Tech Stack
+- **Node.js**: Asynchronous event-driven JavaScript runtime.
+- **Express.js**: Lightweight HTTP routing protocol and server.
+- **Jest**: Zero-configuration testing platform.
+- **Supertest**: High-level abstraction for testing Express HTTP routes cleanly.
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
-1. **Clone the repository** (if applicable):
+**Prerequisites:** You must have [Node.js](https://nodejs.org/en/) installed on your local machine.
+
+1. **Clone the repository**:
    ```bash
    git clone <your-repo-url>
    cd task-api
    ```
 
-2. **Install dependencies**:
-   Ensure you have Node.js installed, then run:
+2. **Install project dependencies**:
    ```bash
    npm install
    ```
 
-3. **Run the server**:
+3. **Start the local server**:
    ```bash
    npm start
    ```
-   *The server will start running on port 3000 (or the port defined in your environment variables).*
+   *The server will boot locally and begin accepting connections on port 3000.*
 
-## 🔌 API Endpoints Summary
+## API Endpoints
 
-| Method | Endpoint | Description |
+All endpoints are prefixed under `http://localhost:3000`.
+
+| Method | Endpoint | Purpose |
 |---|---|---|
-| `GET` | `/tasks` | Get all tasks (Supports `?status`, `?page`, and `?limit`) |
-| `GET` | `/tasks/stats` | Get statistics about tasks (counts by status, overdue) |
-| `POST` | `/tasks` | Create a new task |
-| `PUT` | `/tasks/:id` | Update an existing task's properties |
-| `DELETE` | `/tasks/:id` | Delete a task |
-| `PATCH` | `/tasks/:id/complete` | Mark a task as completed |
-| `PATCH` | `/tasks/:id/assign` | Assign a task to a user |
+| `GET` | `/tasks` | Retrieve all active tasks. Accepts `?status`, `?page`, and `?limit`. |
+| `GET` | `/tasks/stats` | Retrieve aggregated global data on task completions and overdue rates. |
+| `POST` | `/tasks` | Provision a new task object in the system. |
+| `PUT` | `/tasks/:id` | Perform a replacement update on a given task's parameters. |
+| `DELETE` | `/tasks/:id` | Remove a task object permanently. |
+| `PATCH` | `/tasks/:id/complete`| Quickly toggle a specific task to a `done` state. |
+| `PATCH` | `/tasks/:id/assign` | Reassign a specific task to a new user payload. |
 
-## 🧪 Testing Instructions
+## API Usage
 
-The application relies on Jest and Supertest to ensure bulletproof reliability. To run the automated test suite:
+Base URL for all local endpoints: `http://localhost:3000`
 
-1. **Run all tests**:
-   ```bash
-   npm test
-   ```
+### 1. Retrieve Tasks (`GET /tasks`)
+Fetch a list of tasks. You can optionally filter by `status` or paginate using `page` and `limit`.
 
-2. **Run tests with coverage details**:
-   ```bash
-   npm run coverage
-   ```
+**Request:**
+```bash
+curl -X GET "http://localhost:3000/tasks?status=todo&limit=5"
+```
 
-## 🐛 Bug Fix Summary
-During the development and testing lifecycle, key issues were identified and successfully resolved:
-- **Pagination Miscalculation**: Fixed a high-priority issue where the first page of results (`page=1`) was skipped entirely due to a 0-indexed offset bug.
-- **Routing & Service Errors**: Resolved module conflicts and missing initializers that previously prevented the Express Router from running successfully.
+**Response:**
+```json
+[
+  {
+    "id": "1634567891011",
+    "title": "Set up database infrastructure",
+    "description": "Initialize Postgres container",
+    "status": "todo",
+    "priority": "high",
+    "createdAt": "2026-04-16T12:00:00.000Z"
+  }
+]
+```
 
-## 🔮 Future Improvements
-- **Database Integration**: Migrate the in-memory array to persistent storage using PostgreSQL or MongoDB.
-- **Authentication**: Secure the API using JWT (JSON Web Tokens) to strictly restrict and manage user task scopes.
-- **Enhanced Filtering Verification**: Convert fuzzy `.includes()` search mechanisms to strict equality matches to completely eliminate edge-case false positives (e.g., matching "in" incorrectly to "in_progress").
+### 2. Create a Task (`POST /tasks`)
+Provision a new task in the system.
 
----
+**Request:**
+```bash
+curl -X POST http://localhost:3000/tasks \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "Write unit tests",
+  "description": "Add 100% test coverage for validators",
+  "priority": "high"
+}'
+```
 
-*Engineered meticulously with quality and testability in mind.*
+**Response:**
+```json
+{
+  "id": "1634567891012",
+  "title": "Write unit tests",
+  "description": "Add 100% test coverage for validators",
+  "status": "todo",
+  "priority": "high",
+  "createdAt": "2026-04-16T12:05:00.000Z"
+}
+```
+
+### 3. Assign a Task (`PATCH /tasks/:id/assign`)
+Reassign a specific task to a designated team member or user.
+
+**Request:**
+```bash
+curl -X PATCH http://localhost:3000/tasks/1634567891012/assign \
+-H "Content-Type: application/json" \
+-d '{
+  "assignee": "johndoe"
+}'
+```
+
+**Response:**
+```json
+{
+  "id": "1634567891012",
+  "title": "Write unit tests",
+  "description": "Add 100% test coverage for validators",
+  "status": "todo",
+  "priority": "high",
+  "createdAt": "2026-04-16T12:05:00.000Z",
+  "assignee": "johndoe"
+}
+```
+
+## Testing
+
+This project employs a robust automated testing CI/CD workflow utilizing Jest to maintain system integrity.
+
+Run the full testing suite:
+```bash
+npm test
+```
+
+Generate a deep coverage report on system files:
+```bash
+npm run coverage
+```
+
+## Bug Fix Summary
+The system has been refactored over time to stabilize critical edge cases spanning routing logic and operational data handling:
+- **Pagination Miscalculation**: Remediated a high-priority 0-indexed integer issue in the service offset logic, preventing the API from accidentally discarding primary/first-page data.
+- **Routing Modules**: Rectified dependency shadowing and syntax conflicts within Express router bindings, guaranteeing healthy server startup processes.
+- **Validation Strictness**: Adjusted filtering routines to avoid soft-inclusive regressions (enforcing type and strict-equality). 
+
+## Assumptions and Trade-offs
+- **In-Memory Storage**: The system relies on a transient in-memory array rather than a persistent database. This allows for immediate local execution but results in data loss upon server restart.
+- **Simplicity Over Scalability**: The architecture prioritizes a straightforward, minimal Express setup rather than a heavily abstracted, horizontally scalable microservice framework.
+- **No Authentication**: Endpoints remain public without authorization guards in order to reduce friction during testing and sandbox evaluations.
+- **Focus on Correctness**: Primary development cycles were allocated to achieving high testability, fixing calculation logic, and building strong validators rather than producing feature bulk.
+
+## Future Improvements
+- **Add database (MongoDB/PostgreSQL)**: Migrate away from volatile in-memory arrays to a reliable, persistent database scheme.
+- **Add authentication (JWT)**: Secure API routes by implementing robust JSON Web Token authorization layers.
+- **Add validation library (Joi/Zod)**: Further enforce datatype strictness and schema assurance upon incoming payloads.
+- **Add Docker support**: Containerize the execution environment for immediate, infrastructure-agnostic deployment.
