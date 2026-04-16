@@ -153,6 +153,22 @@ curl -X PATCH http://localhost:3000/tasks/1634567891012/assign \
 }
 ```
 
+## Local Verification
+
+Run:
+```bash
+npm test
+```
+**Expected output:**
+✔ 10/10 tests passing
+
+Run server:
+```bash
+npm start
+```
+**Server runs on:**
+`http://localhost:3000`
+
 ## Error Handling
 
 The API employs consistent, predictable JSON responses for all error states:
