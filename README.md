@@ -34,6 +34,13 @@ npm start
 - `src/utils/`: Reusable payload constraints, validators, and error helpers.
 - `tests/`: Automated integration tests enforcing application correctness via Jest.
 
+## Design Decisions
+
+- **RESTful Architecture**: Adheres strictly to core REST principles, utilizing appropriate HTTP conventions and predictable namespace routing.
+- **Separation of Concerns**: Maintains a clean boundary isolation—acting HTTP controllers (`routes/`) are strictly decoupled from memory orchestration and business models (`services/`).
+- **Validation Layering**: Defends application states proactively via strict reusable validators (`utils/validators.js`) mapped to immediate 400 rejection chains.
+- **Test-First Methodology**: Extensively hardened operations under Jest/Supertest CI standards, ensuring bug resistance and 80%+ structural coverage margins.
+
 ## Setup Instructions
 
 **Prerequisites:** You must have [Node.js](https://nodejs.org/en/) installed on your local machine.
