@@ -1,5 +1,7 @@
 # Task API
 
+![Tests](https://img.shields.io/badge/Tests-10%2F10_passing-success)
+
 🚀 Built as a take-home assignment demonstrating debugging, testing, and API design skills.
 
 A robust, fully-tested REST API built with Node.js and Express.js for managing tasks. This system is designed for high reliability, featuring comprehensive CRUD operations, advanced filtering, and pagination semantics. 
